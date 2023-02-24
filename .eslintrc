@@ -1,0 +1,26 @@
+{
+  "extends": ["airbnb-base", "plugin:prettier/recommended"],
+  "plugins": ["prettier"],
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "parser": "babel-eslint",
+  "rules": {
+    "no-var": "error",
+    "semi": "warn",
+    "no-multi-spaces": "warn",
+    "space-in-parens": "warn",
+    "no-multiple-empty-lines": "warn",
+    "prefer-const": "error",
+    "no-use-before-define": "error",
+    "object-curly-newline": "off",
+    "func-names": "off",
+    "import/no-unresolved": "off",
+    "no-unused-vars": "warn",
+    "indent": ["error", 4],
+    "prefer-destructuring": "warn",
+    "linebreak-style": 0, // Expected linebreaks to be 'LF' but found 'CRLF'.  FIX for windows
+    "prettier/prettier": ["warn"]
+  }
+}

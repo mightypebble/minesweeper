@@ -1,0 +1,44 @@
+{
+    "PORT": 8000,
+    "COMPATIBILITY": [
+        "last 2 versions",
+        "ie >= 9",
+        "ios >= 7"
+    ],
+    "PATHS": {
+        "templates": {
+            "root": "src/templates/pages/",
+            "layouts": "src/templates/layouts/",
+            "partials": "src/templates/partials/",
+            "data": "src/templates/data/",
+            "helpers": "src/templates/helpers/"
+        },
+        "dist": {
+            "root": "dist",
+            "styles": "dist/styles",
+            "scripts": "dist/scripts",
+            "assets": "dist/assets"
+        },
+        "assets": [
+            "src/assets/**/*",
+            "!src/assets/{images,fonts,json}{,/**/*}"
+        ],
+        "src": {
+            "assets": {
+                "images": "src/assets/images/**/*",
+                "root": "src/assets"
+            },
+            "styles": {
+                "all": "src/styles/",
+                "entry": "src/styles/style.scss",
+                "modules": "src/styles/**/*.scss"
+            },
+            "scripts": {
+                "all": "src/scripts/**/*.js",
+                "entry": "src/scripts/main.js",
+                "modules": "src/scripts/modules/*.js",
+                "libs": "src/scripts/libs/*.js"
+            }
+        }
+    }
+}

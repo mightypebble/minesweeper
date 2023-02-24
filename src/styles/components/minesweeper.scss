@@ -1,0 +1,117 @@
+body{
+    background-color: $theme-color-primary;
+}
+
+p{
+    font-size: $theme-font-base;
+    font-weight: bold;
+    display: none;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.menu{
+    align-items: center;
+    border: inset 4px $theme-color-secondary;
+    display: flex;
+    height: 80px;
+    justify-content: space-around;
+    left: 50%;
+    margin-top: 4px;
+    position: absolute;
+    transform: translate(-50%);
+    width: 358px;
+
+    .button-reset{
+        background-color: $theme-color-primary;
+        border: inset 4px $theme-color-secondary;
+        height: 60px;
+        width: 60px;
+
+        &::after{
+            content: '';
+            /* stylelint-disable */
+            background-image: url('../../assets/images/emoji.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            height: 46px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 46px;
+        }
+
+        &:active{
+            border: outset 4px $theme-color-secondary;
+        }
+    }
+}
+
+.minesweeper{
+    background-color: $theme-color-background;
+    height: 600px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 375px;
+}
+
+.minefield{
+    border: inset 4px $theme-color-secondary;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    grid-template-rows: repeat(20, 1fr);
+    height: 507px;
+    left: 50%;
+    margin-bottom: 10px;
+    position: absolute;
+    transform: translate(-50%);
+    width: 358px;
+
+    .mineblock{
+        background-color: $theme-color-primary;
+        border: 3px outset $theme-color-secondary;
+        height: 25px;
+        position: relative;
+        width: 25px;
+    }
+    
+    .bomb{
+        &::after{
+            content: '';
+            /* stylelint-disable */
+            background-image: url('../../assets/images/mine.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            display: none;
+            height: 30px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+        }
+    
+    }
+    
+    .mineblock--revealed{
+        border: 1px solid $theme-color-dark;
+    
+        p{
+            display: block;
+        }
+
+        &::after{
+            display: block;
+        }
+    }
+}

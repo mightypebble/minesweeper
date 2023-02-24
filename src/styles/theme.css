@@ -1,0 +1,6 @@
+:root {
+    --theme-color-primary: rgb(204, 0, 255);
+    --theme-color-secondary: rgb(0, 255, 34);
+
+    --theme-font-base: 16px;
+}
