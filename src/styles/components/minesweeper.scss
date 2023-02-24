@@ -26,7 +26,7 @@ p{
 
     .button-reset{
         background-color: $theme-color-primary;
-        border: inset 4px $theme-color-secondary;
+        border: outset 4px $theme-color-secondary;
         height: 60px;
         width: 60px;
 
@@ -47,7 +47,7 @@ p{
         }
 
         &:active{
-            border: outset 4px $theme-color-secondary;
+            border: inset 4px $theme-color-secondary;
         }
     }
 }
@@ -81,6 +81,10 @@ p{
         height: 25px;
         position: relative;
         width: 25px;
+
+        &:active{
+            border: inset 2px $theme-color-secondary;
+        }
     }
     
     .bomb{
@@ -102,12 +106,38 @@ p{
         }
     
     }
+
+    .flagged{
+        &::before{
+            content: '';
+            /* stylelint-disable */
+            background-image: url('../../assets/images/flag.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            height: 30px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+        }
+
+        &:active{
+            border: 3px outset $theme-color-secondary;
+        }
+    }
     
     .mineblock--revealed{
         border: 1px solid $theme-color-dark;
     
         p{
             display: block;
+        }
+
+        &:active{
+            border: 1px solid $theme-color-dark;
         }
 
         &::after{
