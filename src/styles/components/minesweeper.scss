@@ -12,6 +12,10 @@ p{
     transform: translate(-50%, -50%);
 }
 
+button:focus{
+    outline: none;
+}
+
 .menu{
     align-items: center;
     border: inset 4px $theme-color-secondary;
@@ -29,7 +33,48 @@ p{
         border: outset 4px $theme-color-secondary;
         height: 60px;
         width: 60px;
+        position: relative;
 
+        &::after{
+            content: '';
+            /* stylelint-disable */
+            background-image: url('../../assets/images/cursed-emoji-2.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            height: 46px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 46px;
+        }
+
+        &:active{
+            border: inset 5px $theme-color-secondary;
+        }
+    }
+
+    .button-reset-alt{
+        &::after{
+            content: '';
+            /* stylelint-disable */
+            background-image: url('../../assets/images/cursed-emoji.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            height: 46px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 46px;
+        }
+    }
+
+    .button-reset-game-over{
         &::after{
             content: '';
             /* stylelint-disable */
@@ -45,10 +90,34 @@ p{
             transform: translate(-50%, -50%);
             width: 46px;
         }
+    }
 
-        &:active{
-            border: inset 4px $theme-color-secondary;
+    .button-flag{
+        background-color: $theme-color-primary;
+        border: outset 4px $theme-color-secondary;
+        height: 40px;
+        position: relative;
+        width: 40px;
+
+        &::after{
+            content: '';
+            /* stylelint-disable */
+            background-image: url('../../assets/images/flag.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            height: 40px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
         }
+    }
+
+    .button-flag-active{
+        border: inset 5px $theme-color-secondary;
     }
 }
 
@@ -131,6 +200,7 @@ p{
     
     .mineblock--revealed{
         border: 1px solid $theme-color-dark;
+        pointer-events: none;
     
         p{
             display: block;
