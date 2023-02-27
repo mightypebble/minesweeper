@@ -1,8 +1,22 @@
 <section class="minesweeper">
     <div class="menu">
-        <button class="button"></button>
+        <button class="button button-rules">
+            <p>?</p>
+        </button>
         <button class="button-reset"></button>
-        <button class="button-flag"></button>
+        <button class="button button-flag"></button>
     </div>
     <div class="minefield"></div>
+    <div class="rules">
+        <h2>How to play:</h2>
+        <p>
+            To win you need to click on evey block that does not contain a bomb.
+            Safe blocks are either empty or have numbers in them. The number corresponds to 
+            the number of bombs surrounding that block.
+            Use flags to mark bombs to avoid accidentaly clicking on them.
+        </p>
+        <button class="button-close-rules">
+            Let's play
+        </button>
+    </div>
 </section>

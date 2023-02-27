@@ -3,17 +3,21 @@ const selector = {
     mineblock: '.mineblock',
     resetButton: '.button-reset',
     flagButton: '.button-flag',
+    ruleButton: '.button-rules',
+    rules: '.rules',
+    closeRulesButton: '.button-close-rules',
 }
 
 class Minesweeper{
     constructor(container) {
         this.container = container;
         this.minefield = this.container.querySelector(selector.minefield);
+        this.ruleButton = this.container.querySelector(selector.ruleButton);
+        this.rules = this.container.querySelector(selector.rules);
+        this.closeRulesButton = this.container.querySelector(selector.closeRulesButton);
         this.resetButton = this.container.querySelector(selector.resetButton);
         this.flagButton = this.container.querySelector(selector.flagButton);
         this.safeBlocks = null;
-        // this.fieldWidth = this.minefield.offsetWidth;  for future use!
-        // this.fieldHeight = this.minefield.offsetHeight; for future use!
 
         this.initEvents();
     }
@@ -22,6 +26,7 @@ class Minesweeper{
         const block = '<div class="mineblock"></div>';
         let gameHasStarted = false;
         let gameHasEnded = false;
+        let time;
         this.safeBlocks = 236;
         this.resetButton.classList.remove('button-reset-game-over'); // sets reset button icon to default
         for (let i = 0; i < 280; i+=1) { // places a mineblock
@@ -46,20 +51,21 @@ class Minesweeper{
                             if (!mineblock.classList.contains('bomb')) this.safeBlocks -= 1;
                             if (this.safeBlocks === 0) { // win condition
                                 gameHasEnded = true;
-                                alert('your winner');
+                                alert(`🥳 ${Math.floor((Date.now() - time)*0.001)} seconds 🥳`);
                             }
                         }
                         if (!gameHasStarted) { // only on first block reveal
                             this.initBombs(index);
                             this.initNumbers();
                             gameHasStarted = true;
+                            time = Date.now();
                         }
                         if (!mineblock.classList.contains('flagged')) this.mineScan(index);
                         // game ends if you reveal a bomb
                         if (mineblock.classList.contains('mineblock--revealed') && mineblock.classList.contains('bomb')){
                             gameHasEnded = true;
                             this.resetButton.classList.add('button-reset-game-over');
-                            alert('game over');
+                            alert('😵 game over');
                         }
                     }
                 }
@@ -103,6 +109,18 @@ class Minesweeper{
                 // adds <p> element with number of nearby bombs inside
                 mineblock.appendChild(document.createElement('p')).appendChild(document.createTextNode(`${nearbyBombs}`));
             }    
+        });
+    }
+
+    openRules() {
+        this.ruleButton.addEventListener('click', () => {
+            this.rules.style.display = 'grid';
+        });
+    }
+
+    closeRules() {
+        this.closeRulesButton.addEventListener('click', () => {
+            this.rules.style.display = 'none';
         });
     }
 
@@ -158,6 +176,8 @@ class Minesweeper{
 
     initEvents() {
         this.initMinefield();
+        this.openRules();
+        this.closeRules();
         this.resetGame();
         this.flagMode();
     }
