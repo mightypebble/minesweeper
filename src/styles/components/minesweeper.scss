@@ -1,5 +1,6 @@
 body{
     background-color: $theme-color-primary;
+    font-family: $font-family-vt323;
 }
 
 button:focus{
@@ -21,6 +22,7 @@ h2{
 }
 
 .rules{
+    align-content: space-evenly;
     background-color: $theme-color-half-opacity;
     display: none;
     height: 100%;
@@ -40,9 +42,9 @@ h2{
         background-color: $theme-color-primary;
         border: outset 4px $theme-color-secondary;
         font-weight: bold;
-        height: 50px;
+        height: 55px;
         margin: auto;
-        width: 100px;
+        width: 105px;
 
         &:active{
             border: inset 5px $theme-color-secondary;
@@ -61,6 +63,11 @@ h2{
     position: absolute;
     transform: translate(-50%);
     width: 358px;
+
+    h3{
+        font-size: $theme-font-header;
+        margin: 0;
+    }
 
     .button{
         background-color: $theme-color-primary;
@@ -234,12 +241,19 @@ h2{
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
+            transition: 0.3s;
             width: 30px;
+            z-index: 1;
         }
 
         &:active{
             border: 3px outset $theme-color-secondary;
         }
+    }
+
+    .flag-drop::before{ // set initial size of flag being dropped
+        height: 150px;
+        width: 150px;
     }
     
     .mineblock--revealed{

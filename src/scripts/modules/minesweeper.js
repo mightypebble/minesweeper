@@ -6,6 +6,8 @@ const selector = {
     ruleButton: '.button-rules',
     rules: '.rules',
     closeRulesButton: '.button-close-rules',
+    flagCounter: '.flag-counter',
+    timer: '.timer',
 }
 
 class Minesweeper{
@@ -17,16 +19,25 @@ class Minesweeper{
         this.closeRulesButton = this.container.querySelector(selector.closeRulesButton);
         this.resetButton = this.container.querySelector(selector.resetButton);
         this.flagButton = this.container.querySelector(selector.flagButton);
+        this.flagCounter = this.container.querySelector(selector.flagCounter);
+        this.timer = this.container.querySelector(selector.timer);
+        this.bombs = null;
         this.safeBlocks = null;
+        this.unplacedFlags = null;
+        this.gameHasStarted = false;
+        this.gameHasEnded = false;
 
         this.initEvents();
     }
 
     initMinefield() { // places blocks
         const block = '<div class="mineblock"></div>';
-        let gameHasStarted = false;
-        let gameHasEnded = false;
+        this.gameHasStarted = false;
+        this.gameHasEnded = false;
         let time;
+        this.unplacedFlags = 0;
+        this.flagCounter.innerHTML = '000';
+        this.timer.innerHTML = '000';
         this.safeBlocks = 236;
         this.resetButton.classList.remove('button-reset-game-over'); // sets reset button icon to default
         for (let i = 0; i < 280; i+=1) { // places a mineblock
@@ -42,7 +53,7 @@ class Minesweeper{
                 this.resetButton.classList.remove('button-reset-alt');
             }
             mineblock.addEventListener('click', () => {
-                if (!gameHasEnded) { // tests if game has ended
+                if (!this.gameHasEnded) { // tests if game has ended
                     if (this.flagButton.classList.contains('button-flag-active')) {
                         this.placeFlag(index);
                     } else {
@@ -50,20 +61,22 @@ class Minesweeper{
                             mineblock.classList.add('mineblock--revealed'); // reveals block
                             if (!mineblock.classList.contains('bomb')) this.safeBlocks -= 1;
                             if (this.safeBlocks === 0) { // win condition
-                                gameHasEnded = true;
+                                this.gameHasEnded = true;
                                 alert(`🥳 ${Math.floor((Date.now() - time)*0.001)} seconds 🥳`);
                             }
                         }
-                        if (!gameHasStarted) { // only on first block reveal
+                        if (!this.gameHasStarted) { // only on first block reveal
                             this.initBombs(index);
+                            this.updateUnplacedFlags();
                             this.initNumbers();
-                            gameHasStarted = true;
+                            this.gameHasStarted = true;
                             time = Date.now();
+                            this.startTimer();
                         }
                         if (!mineblock.classList.contains('flagged')) this.mineScan(index);
                         // game ends if you reveal a bomb
                         if (mineblock.classList.contains('mineblock--revealed') && mineblock.classList.contains('bomb')){
-                            gameHasEnded = true;
+                            this.gameHasEnded = true;
                             this.resetButton.classList.add('button-reset-game-over');
                             alert('😵 game over');
                         }
@@ -71,7 +84,7 @@ class Minesweeper{
                 }
             });
             mineblock.addEventListener('contextmenu', (ev) => { // on right click
-                this.placeFlag(index);
+                if (this.gameHasStarted) this.placeFlag(index);
                 ev.preventDefault(); // prevents default menu from opening
                 return false;
             });
@@ -79,13 +92,14 @@ class Minesweeper{
     }
 
     initBombs(mineblockIndex) { // places mines
-        let bombs = 44; // set difficulty here
-        while (bombs !== 0) {
+        this.bombs = 44; // set difficulty here
+        this.unplacedFlags = this.bombs;
+        while (this.bombs !== 0) {
             const random = (Math.floor(Math.random() * 280)); // random number from 0 to number of blocks - 1
             // checks if there is already a bomb on the rolled block and if it's the first block revealed
             if (!this.blocks[random].classList.contains('bomb') && random !== mineblockIndex) {
                 this.blocks[random].classList.add('bomb');
-                bombs -= 1;
+                this.bombs -= 1;
             }
         }
     }
@@ -170,8 +184,37 @@ class Minesweeper{
     placeFlag(mineblockIndex) { // places flags
         // checks if the selected blocks is already revealed
         if (!this.blocks[mineblockIndex].classList.contains('mineblock--revealed')) {
+            this.blocks[mineblockIndex].classList.toggle('flag-drop'); // creates a drop effect
             this.blocks[mineblockIndex].classList.toggle('flagged');
+            if (this.blocks[mineblockIndex].classList.contains('flagged')) {
+                this.unplacedFlags -= 1;
+            } else {
+                this.unplacedFlags += 1;
+            }
+            this.updateUnplacedFlags();
+            setTimeout(() => {this.blocks[mineblockIndex].classList.toggle('flag-drop')}, 1);
         }
+    }
+
+    updateUnplacedFlags() {
+        this.flagCounter.innerHTML = `0${this.unplacedFlags}`;
+    }
+
+    startTimer() {
+        let time = 0;
+        const interval = setInterval(() => {
+            if (time <= 999) {
+                if (!this.gameHasStarted || this.gameHasEnded) clearInterval(interval);
+                if ((time / 100) >= 1) {
+                    this.timer.innerHTML = `${time}`;
+                } else if ((time / 10) >= 1) {
+                    this.timer.innerHTML = `0${time}`;
+                } else {
+                    this.timer.innerHTML = `00${time}`;
+                }
+                time += 1;
+            }
+        }, 1000);
     }
 
     initEvents() {

@@ -7,7 +7,30 @@ $theme-color-half-opacity: rgba(100, 100, 100, 0.8);
 $theme-color-text: #252525;
 
 // typography
-$theme-font-base: 22px;
+$theme-font-base: 25px;
+$theme-font-header: 45px;
 
 // properties
 $border-property-none: none;
+
+// fonts
+$font-family-scoreboard: scoreboard;
+@font-face {
+    font-family: $font-family-scoreboard;
+    src: url('../assets/fonts/Crashed-Scoreboard.ttf');
+}
+$font-family-graduate: graduate;
+@font-face {
+    font-family: $font-family-graduate;
+    src: url('../assets/fonts/Graduate-Regular.ttf');
+}
+$font-family-quantico: quantico;
+@font-face {
+    font-family: $font-family-quantico;
+    src: url('../assets/fonts/Quantico-Bold.ttf');
+}
+$font-family-vt323: vt323;
+@font-face {
+    font-family: $font-family-vt323;
+    src: url('../assets/fonts/VT323-Regular.ttf');
+}
