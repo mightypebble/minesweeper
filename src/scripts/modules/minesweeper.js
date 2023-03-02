@@ -8,6 +8,9 @@ const selector = {
     closeRulesButton: '.button-close-rules',
     flagCounter: '.flag-counter',
     timer: '.timer',
+    victoryScreen: '.victory-screen',
+    victoryTime: '.victory-time',
+    closeVictoryScreenButton: '.button-close-victory-screen',
 }
 
 class Minesweeper{
@@ -21,6 +24,9 @@ class Minesweeper{
         this.flagButton = this.container.querySelector(selector.flagButton);
         this.flagCounter = this.container.querySelector(selector.flagCounter);
         this.timer = this.container.querySelector(selector.timer);
+        this.victoryScreen = this.container.querySelector(selector.victoryScreen);
+        this.victoryTime = this.container.querySelector(selector.victoryTime);
+        this.closeVictoryScreenButton = this.container.querySelector(selector.closeVictoryScreenButton);
         this.bombs = null;
         this.safeBlocks = null;
         this.unplacedFlags = null;
@@ -38,7 +44,7 @@ class Minesweeper{
         this.unplacedFlags = 0;
         this.flagCounter.innerHTML = '000';
         this.timer.innerHTML = '000';
-        this.safeBlocks = 236;
+        this.safeBlocks = 236; // 236 by default
         this.resetButton.classList.remove('button-reset-game-over'); // sets reset button icon to default
         for (let i = 0; i < 280; i+=1) { // places a mineblock
             this.minefield.insertAdjacentHTML('afterbegin', block);
@@ -58,11 +64,12 @@ class Minesweeper{
                         this.placeFlag(index);
                     } else {
                         if (!mineblock.classList.contains('flagged')) { // tests if block is flagged
-                            mineblock.classList.add('mineblock--revealed'); // reveals block
+                            mineblock.classList.add('revealed'); // reveals block
+                            mineblock.classList.remove('uncertain'); // removes ? if there are any
                             if (!mineblock.classList.contains('bomb')) this.safeBlocks -= 1;
                             if (this.safeBlocks === 0) { // win condition
                                 this.gameHasEnded = true;
-                                alert(`🥳 ${Math.floor((Date.now() - time)*0.001)} seconds 🥳`);
+                                this.victory();
                             }
                         }
                         if (!this.gameHasStarted) { // only on first block reveal
@@ -75,10 +82,8 @@ class Minesweeper{
                         }
                         if (!mineblock.classList.contains('flagged')) this.mineScan(index);
                         // game ends if you reveal a bomb
-                        if (mineblock.classList.contains('mineblock--revealed') && mineblock.classList.contains('bomb')){
-                            this.gameHasEnded = true;
-                            this.resetButton.classList.add('button-reset-game-over');
-                            alert('😵 game over');
+                        if (mineblock.classList.contains('revealed') && mineblock.classList.contains('bomb')){
+                            this.loss();
                         }
                     }
                 }
@@ -105,7 +110,6 @@ class Minesweeper{
     }
 
     initNumbers() { // places numbers
-        this.blocks = this.container.querySelectorAll(selector.mineblock);
         this.blocks.forEach(mineblock => {
             let adjecentBlocks = [-15, -14, -13, -1, 1, 13, 14, 15]; // positions of all adjecent blocks to the one selected
             let nearbyBombs = 0;
@@ -151,6 +155,22 @@ class Minesweeper{
         });
     }
 
+    victory() {
+        this.victoryScreen.style.display = 'grid';
+        this.victoryTime.innerHTML = `${this.timer.innerHTML} seconds`;
+        this.closeVictoryScreenButton.addEventListener('click', () => {
+            this.victoryScreen.style.display = 'none';
+        });
+    }
+
+    loss() {
+        this.gameHasEnded = true;
+        this.resetButton.classList.add('button-reset-game-over');
+        this.blocks.forEach(mineblock => {
+            if (mineblock.classList.contains('bomb')) mineblock.classList.add('revealed');
+        });
+    }
+
     mineScan(mineblockIndex) { // scans for nearby empty blocks and reveals them
         let adjecentBlocks = [-15, -14, -13, -1, 1, 13, 14, 15]; // positions of all adjecent blocks to the one selected
         let nearbyBombs = 0;
@@ -168,13 +188,11 @@ class Minesweeper{
                 // tests for out of bounds indexes
                 if ((mineblockIndex + adjecentBlock) < 0 || (mineblockIndex + adjecentBlock) > 279) adjecentBlock = 0; // eslint-disable-line
                 // tests for already revealed blocks
-                if (!this.blocks[mineblockIndex + adjecentBlock].classList.contains('mineblock--revealed')) {
-                    this.blocks[mineblockIndex + adjecentBlock].classList.add('mineblock--revealed');
+                if (!this.blocks[mineblockIndex + adjecentBlock].classList.contains('revealed')) {
+                    this.blocks[mineblockIndex + adjecentBlock].classList.add('revealed');
                     this.safeBlocks -= 1;
-                    // removes flags if there are any
-                    if (this.blocks[mineblockIndex + adjecentBlock].classList.contains('flagged')) {
-                        this.blocks[mineblockIndex + adjecentBlock].classList.remove('flagged');
-                    }
+                    this.blocks[mineblockIndex + adjecentBlock].classList.remove('flagged'); // removes flags if there are any
+                    this.blocks[mineblockIndex + adjecentBlock].classList.remove('uncertain'); // removes ? if there are any
                     this.mineScan(mineblockIndex + adjecentBlock); // recursion
                 }
             });
@@ -183,25 +201,37 @@ class Minesweeper{
 
     placeFlag(mineblockIndex) { // places flags
         // checks if the selected blocks is already revealed
-        if (!this.blocks[mineblockIndex].classList.contains('mineblock--revealed')) {
-            this.blocks[mineblockIndex].classList.toggle('flag-drop'); // creates a drop effect
-            this.blocks[mineblockIndex].classList.toggle('flagged');
-            if (this.blocks[mineblockIndex].classList.contains('flagged')) {
+        if (!this.blocks[mineblockIndex].classList.contains('revealed')) {
+            if (!this.blocks[mineblockIndex].classList.contains('flagged')  && !this.blocks[mineblockIndex].classList.contains('uncertain')) {
+                this.blocks[mineblockIndex].classList.toggle('flag-drop'); // creates a drop effect
+                this.blocks[mineblockIndex].classList.add('flagged');
                 this.unplacedFlags -= 1;
+                setTimeout(() => {this.blocks[mineblockIndex].classList.toggle('flag-drop')}, 1);
+            } else if(this.blocks[mineblockIndex].classList.contains('uncertain')) {
+                this.blocks[mineblockIndex].classList.remove('uncertain');
             } else {
+                this.blocks[mineblockIndex].classList.remove('flagged');
                 this.unplacedFlags += 1;
+                this.blocks[mineblockIndex].classList.add('uncertain');
             }
             this.updateUnplacedFlags();
-            setTimeout(() => {this.blocks[mineblockIndex].classList.toggle('flag-drop')}, 1);
         }
     }
 
     updateUnplacedFlags() {
         this.flagCounter.innerHTML = `0${this.unplacedFlags}`;
+        if ((this.unplacedFlags / 100) >= 1) {
+            this.flagCounter.innerHTML = `${this.unplacedFlags}`;
+        } else if ((this.unplacedFlags / 10) >= 1) {
+            this.flagCounter.innerHTML = `0${this.unplacedFlags}`;
+        } else {
+            this.flagCounter.innerHTML = `00${this.unplacedFlags}`;
+        }
     }
 
+    // start counting seconds since the start of the game till the end
     startTimer() {
-        let time = 0;
+        let time = 1;
         const interval = setInterval(() => {
             if (time <= 999) {
                 if (!this.gameHasStarted || this.gameHasEnded) clearInterval(interval);

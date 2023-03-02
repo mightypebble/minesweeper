@@ -22,33 +22,18 @@ h2{
 }
 
 .rules{
-    align-content: space-evenly;
-    background-color: $theme-color-half-opacity;
-    display: none;
-    height: 100%;
-    justify-content: space-around;
-    position: absolute;
-    text-align: center;
-    width: 100%;
-
-    p{
-        padding: 0 25px;
-        position: relative;
-        transform: translate();
-    }
+    @include full-screen-message;
 
     .button-close-rules{
-        color: $theme-color-text;
-        background-color: $theme-color-primary;
-        border: outset 4px $theme-color-secondary;
-        font-weight: bold;
-        height: 55px;
-        margin: auto;
-        width: 105px;
+        @include text-button;
+    }
+}
 
-        &:active{
-            border: inset 5px $theme-color-secondary;
-        }
+.victory-screen{
+    @include full-screen-message;
+
+    .button-close-victory-screen{
+        @include text-button;
     }
 }
 
@@ -255,8 +240,22 @@ h2{
         height: 150px;
         width: 150px;
     }
+
+    .uncertain{
+        position: relative;
+
+        &::before{
+            content: '?';
+            font-size: $theme-font-base;
+            font-weight: 700;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
     
-    .mineblock--revealed{
+    .revealed{
         border: 1px solid $theme-color-dark;
         pointer-events: none;
     
