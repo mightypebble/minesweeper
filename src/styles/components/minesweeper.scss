@@ -64,9 +64,6 @@ h2{
 .rules{
     @include full-screen-message;
 
-    height: 611px;
-    transform: translate(0, -25%);
-
     .button-close-rules{
         @include text-button;
     }
