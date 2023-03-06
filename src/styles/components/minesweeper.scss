@@ -12,6 +12,7 @@ p{
     font-size: $theme-font-base;
     font-weight: bold;
     left: 50%;
+    padding: 0;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
@@ -21,8 +22,50 @@ h2{
     font-weight: 800;
 }
 
+.button{
+    background-color: $theme-color-primary;
+    border: outset 4px $theme-color-secondary;
+    height: 40px;
+    position: relative;
+    width: 40px;
+
+    &:active{
+        border: inset 5px $theme-color-secondary;
+    }
+}
+
+.big-button{
+    @include big-button;
+}
+
+.menu{
+    @include full-screen-message;
+
+    .button-close-menu{
+        @include text-button;
+    }
+
+    .button-easy::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/easy-emoji.png'); // stylelint-disable-line
+    }
+
+    .button-normal::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/normal-emoji.png'); // stylelint-disable-line
+    }
+
+    .button-hard::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/hard-emoji.png'); // stylelint-disable-line
+    }
+}
+
 .rules{
     @include full-screen-message;
+
+    height: 611px;
+    transform: translate(0, -25%);
 
     .button-close-rules{
         @include text-button;
@@ -37,114 +80,56 @@ h2{
     }
 }
 
-.menu{
+.navigation{
     align-items: center;
     border: inset 4px $theme-color-secondary;
     display: flex;
     height: 80px;
     justify-content: space-around;
     left: 50%;
-    margin-top: 4px;
-    position: absolute;
+    margin-top: 8px;
+    position: relative;
     transform: translate(-50%);
-    width: 358px;
 
     h3{
         font-size: $theme-font-header;
         margin: 0;
     }
 
-    .button{
-        background-color: $theme-color-primary;
-        border: outset 4px $theme-color-secondary;
-        height: 40px;
-        position: relative;
-        width: 40px;
-    }
-
     .button-rules:active{
         border: inset 5px $theme-color-secondary;
     }
 
-    .button-reset{
-        background-color: $theme-color-primary;
-        border: outset 4px $theme-color-secondary;
-        height: 60px;
-        width: 60px;
-        position: relative;
+    .button-menu::after{
+        @include small-button-emojis;
+        background-image: url('../../assets/menu.svg'); // stylelint-disable-line
+        height: 32px;
+        width: 32px;
+    }
 
-        &::after{
-            content: '';
-            /* stylelint-disable */
-            background-image: url('../../assets/images/cursed-emoji-2.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            /* stylelint-enable */
-            height: 46px;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 46px;
-        }
-
-        &:active{
-            border: inset 5px $theme-color-secondary;
-        }
+    .button-reset::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/cursed-emoji-2.png'); // stylelint-disable-line
     }
 
     .button-reset-alt{
         &::after{
-            content: '';
-            /* stylelint-disable */
-            background-image: url('../../assets/images/cursed-emoji.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            /* stylelint-enable */
-            height: 46px;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 46px;
+            @include big-button-emojis;
+            background-image: url('../../assets/images/cursed-emoji.png'); // stylelint-disable-line
         }
     }
 
     .button-reset-game-over{
         &::after{
-            content: '';
-            /* stylelint-disable */
-            background-image: url('../../assets/images/emoji.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            /* stylelint-enable */
-            height: 46px;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 46px;
+            @include big-button-emojis;
+            background-image: url('../../assets/images/emoji.png'); // stylelint-disable-line
         }
     }
 
     .button-flag{
         &::after{
-            content: '';
-            /* stylelint-disable */
-            background-image: url('../../assets/images/flag.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            /* stylelint-enable */
-            height: 40px;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 40px;
+            @include small-button-emojis;
+            background-image: url('../../assets/images/flag.png'); // stylelint-disable-line
         }
     }
 
@@ -155,12 +140,14 @@ h2{
 
 .minesweeper{
     background-color: $theme-color-background;
-    height: 600px;
+    display: grid;
+    row-gap: 5px;
+    justify-content: center;
     left: 50%;
+    padding: 0 8px;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 375px;
 }
 
 .minefield{
@@ -168,13 +155,13 @@ h2{
     bottom: 0;
     display: grid;
     grid-template-columns: repeat(14, 1fr);
-    grid-template-rows: repeat(20, 1fr);
-    height: 507px;
+    // grid-template-rows: repeat(20, 1fr);
+    height: min-content;
     left: 50%;
     margin-bottom: 10px;
-    position: absolute;
+    position: relative;
     transform: translate(-50%);
-    width: 358px;
+    width: min-content;
 
     p{
         display: none;

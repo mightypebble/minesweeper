@@ -1,17 +1,30 @@
 <section class="minesweeper">
-    <div class="menu">
+    <div class="navigation">
         <h3 class="flag-counter">000</h3>
-        <button class="button button-rules">
-            <p>?</p>
-        </button>
-        <button class="button-reset"></button>
+        <button class="button button-menu"></button>
+        <button class="big-button button-reset"></button>
         <button class="button button-flag"></button>
         <h3 class="timer">000</h3>
     </div>
     <div class="minefield"></div>
+    <div class="menu">
+        <div class="big-buttons-container">
+            <button class="big-button button-easy"></button>
+            <button class="big-button button-normal"></button>
+            <button class="big-button button-hard"></button>
+        </div>
+        <div class="small-button-container">
+            <button class="button button-rules">
+                <p>?</p>
+            </button>
+        </div>
+        <button class="button-close-menu">
+            Close
+        </button>
+    </div>
     <div class="rules">
         <h2>How to play:</h2>
-        <p>
+        <p class="description">
             To win you need to click on evey block that does not contain a bomb.
             Safe blocks are either empty or have numbers in them. The number corresponds to 
             the number of bombs surrounding that block.
@@ -23,7 +36,7 @@
     </div>
     <div class="victory-screen">
         <h2>You live!</h2>
-        <p class="victory-time"></p>
+        <p class="description victory-time"></p>
         <button class="button-close-victory-screen">
             Play again
         </button>

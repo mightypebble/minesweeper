@@ -22,9 +22,51 @@
     text-align: center;
     width: 100%;
 
-    p{
+    .description{
         padding: 0 25px;
         position: relative;
         transform: translate();
     }
+}
+
+@mixin big-button{
+    background-color: $theme-color-primary;
+    border: outset 4px $theme-color-secondary;
+    height: 60px;
+    width: 60px;
+    position: relative;
+
+    &:active{
+        border: inset 5px $theme-color-secondary;
+    }
+}
+
+@mixin big-button-emojis{
+    content: '';
+    /* stylelint-disable */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* stylelint-enable */
+    height: 46px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 46px;
+}
+
+@mixin small-button-emojis{
+    content: '';
+            /* stylelint-disable */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            height: 40px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
 }
