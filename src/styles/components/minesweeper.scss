@@ -7,19 +7,15 @@ button:focus{
     outline: none;
 }
 
+h2{
+    font-weight: 800;
+}
+
 p{
     color: $theme-color-text;
     font-size: $theme-font-base;
     font-weight: bold;
-    left: 50%;
     padding: 0;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-}
-
-h2{
-    font-weight: 800;
 }
 
 .button{
@@ -38,100 +34,11 @@ h2{
     @include big-button;
 }
 
-.menu{
-    @include full-screen-message;
-
-    .button-close-menu{
-        @include text-button;
-    }
-
-    .button-easy::after{
-        @include big-button-emojis;
-        background-image: url('../../assets/images/easy-emoji.png'); // stylelint-disable-line
-    }
-
-    .button-normal::after{
-        @include big-button-emojis;
-        background-image: url('../../assets/images/normal-emoji.png'); // stylelint-disable-line
-    }
-
-    .button-hard::after{
-        @include big-button-emojis;
-        background-image: url('../../assets/images/hard-emoji.png'); // stylelint-disable-line
-    }
-}
-
-.rules{
-    @include full-screen-message;
-
-    .button-close-rules{
-        @include text-button;
-    }
-}
-
 .victory-screen{
     @include full-screen-message;
 
     .button-close-victory-screen{
         @include text-button;
-    }
-}
-
-.navigation{
-    align-items: center;
-    border: inset 4px $theme-color-secondary;
-    display: flex;
-    height: 80px;
-    justify-content: space-around;
-    left: 50%;
-    margin-top: 8px;
-    position: relative;
-    transform: translate(-50%);
-
-    h3{
-        font-size: $theme-font-header;
-        margin: 0;
-    }
-
-    .button-rules:active{
-        border: inset 5px $theme-color-secondary;
-    }
-
-    .button-menu::after{
-        @include small-button-emojis;
-        background-image: url('../../assets/menu.svg'); // stylelint-disable-line
-        height: 32px;
-        width: 32px;
-    }
-
-    .button-reset::after{
-        @include big-button-emojis;
-        background-image: url('../../assets/images/cursed-emoji-2.png'); // stylelint-disable-line
-    }
-
-    .button-reset-alt{
-        &::after{
-            @include big-button-emojis;
-            background-image: url('../../assets/images/cursed-emoji.png'); // stylelint-disable-line
-        }
-    }
-
-    .button-reset-game-over{
-        &::after{
-            @include big-button-emojis;
-            background-image: url('../../assets/images/emoji.png'); // stylelint-disable-line
-        }
-    }
-
-    .button-flag{
-        &::after{
-            @include small-button-emojis;
-            background-image: url('../../assets/images/flag.png'); // stylelint-disable-line
-        }
-    }
-
-    .button-flag-active{
-        border: inset 5px $theme-color-secondary;
     }
 }
 
@@ -147,112 +54,61 @@ h2{
     transform: translate(-50%, -50%);
 }
 
-.minefield{
-    border: inset 4px $theme-color-secondary;
-    bottom: 0;
-    display: grid;
-    grid-template-columns: repeat(14, 1fr);
-    // grid-template-rows: repeat(20, 1fr);
-    height: min-content;
-    left: 50%;
-    margin-bottom: 10px;
-    position: relative;
-    transform: translate(-50%);
-    width: min-content;
-
-    p{
-        display: none;
-    }
-
-    .mineblock{
-        background-color: $theme-color-primary;
-        border: 3px outset $theme-color-secondary;
-        height: 25px;
-        position: relative;
-        width: 25px;
-
-        &:active{
-            border: inset 2px $theme-color-secondary;
+.minesweeper-pink{
+    background-color: $pink-theme-color-background;
+    color: $pink-theme-color-text;
+    .navigation{
+        border: inset 4px $pink-theme-color-secondary;
+        .button-flag-active{
+            border: inset 5px $pink-theme-color-secondary;
         }
     }
-    
-    .bomb{
-        &::after{
-            content: '';
-            /* stylelint-disable */
-            background-image: url('../../assets/images/mine.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            /* stylelint-enable */
-            display: none;
-            height: 30px;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            width: 30px;
-        }
-    
-    }
-
-    .flagged{
-        &::before{
-            content: '';
-            /* stylelint-disable */
-            background-image: url('../../assets/images/flag.png');
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            /* stylelint-enable */
-            height: 30px;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            transition: 0.3s;
-            width: 30px;
-            z-index: 1;
-        }
-
-        &:active{
-            border: 3px outset $theme-color-secondary;
-        }
-    }
-
-    .flag-drop::before{ // set initial size of flag being dropped
-        height: 150px;
-        width: 150px;
-    }
-
-    .uncertain{
-        position: relative;
-
-        &::before{
-            content: '?';
-            font-size: $theme-font-base;
-            font-weight: 700;
-            left: 50%;
-            position: absolute;
-            top: 50%;
-            transform: translate(-50%, -50%);
-        }
-    }
-    
-    .revealed{
-        border: 1px solid $theme-color-dark;
-        pointer-events: none;
-    
+    .minefield{
+        border: inset 4px $pink-theme-color-secondary;
         p{
-            display: block;
+            color: $pink-theme-color-text;
         }
+        .mineblock{
+            background-color: $pink-theme-color-primary;
+            border: 3px outset $pink-theme-color-secondary;
+    
+            &:active{
+                border: inset 2px $pink-theme-color-secondary;
+            }
+        }
+        .revealed{
+            border: 1px solid $pink-theme-color-dark;
+        }
+    }
+    .button{
+        color: $pink-theme-color-text;
+        background-color: $pink-theme-color-primary;
+        border: outset 4px $pink-theme-color-secondary;
 
         &:active{
-            border: 1px solid $theme-color-dark;
+            border: inset 5px $pink-theme-color-secondary;
         }
+    }
+    .big-button{
+        background-color: $pink-theme-color-primary;
+        border: outset 4px $pink-theme-color-secondary;
+        &:active{
+            border: inset 5px $pink-theme-color-secondary;
+        }
+    }
+    .rules, .victory-screen, .menu, .settings{
+        background-color: $pink-theme-color-half-opacity;
+        p {
+            color: $pink-theme-color-text;
+        }
+        .button-close-victory-screen, .button-close-menu, .button-close-rules, .button-close-settings{
+            color: $pink-theme-color-text;
+            background-color: $pink-theme-color-primary;
+            border: outset 4px $pink-theme-color-secondary;
 
-        &::after{
-            display: block;
+            &:active{
+                border: inset 5px $pink-theme-color-secondary;
+            }
         }
     }
 }

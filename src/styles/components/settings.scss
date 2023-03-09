@@ -1,0 +1,12 @@
+.settings{
+    @include full-screen-message;
+}
+
+.button-close-settings{
+    @include text-button;
+}
+
+.settings-checkbox{
+    height: 20px;
+    width: 20px;
+}

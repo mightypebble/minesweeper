@@ -1,0 +1,122 @@
+.minefield{
+    border: inset 4px $theme-color-secondary;
+    bottom: 0;
+    display: grid;
+    grid-template-columns: repeat(14, 1fr);
+    height: min-content;
+    left: 50%;
+    margin-bottom: 10px;
+    position: relative;
+    transform: translate(-50%);
+    width: min-content;
+
+    p{
+        color: $theme-color-text;
+        display: none;
+        font-size: $theme-font-base;
+        font-weight: bold;
+        left: 50%;
+        padding: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .mineblock{
+        background-color: $theme-color-primary;
+        border: 3px outset $theme-color-secondary;
+        height: 25px;
+        position: relative;
+        width: 25px;
+
+        &:active{
+            border: inset 2px $theme-color-secondary;
+        }
+    }
+    
+    .bomb{
+        &::after{
+            content: '';
+            /* stylelint-disable */
+            background-image: url('../../assets/images/mine.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            display: none;
+            height: 30px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 30px;
+        }
+    
+    }
+
+    .flagged{
+        &::before{
+            content: '';
+            /* stylelint-disable */
+            background-image: url('../../assets/images/flag.png');
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            /* stylelint-enable */
+            height: 30px;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            transition: 0.3s;
+            width: 30px;
+            z-index: 1;
+        }
+
+        &:active{
+            border: 3px outset $theme-color-secondary;
+        }
+    }
+
+    .flag-drop::before{ // set initial size of flag being dropped
+        height: 150px;
+        width: 150px;
+    }
+
+    .uncertain{
+        position: relative;
+
+        &::before{
+            content: '?';
+            font-size: $theme-font-base;
+            font-weight: 700;
+            left: 50%;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+    
+    .revealed{
+        border: 1px solid $theme-color-dark;
+        pointer-events: none;
+    
+        p{
+            display: block;
+        }
+
+        &:active{
+            border: 1px solid $theme-color-dark;
+        }
+
+        &::after{
+            display: block;
+        }
+    }
+}
+
+.minesweeper-pink{
+    .mineblock::after{
+        background-image: url('../../assets/images/flower.png'); // stylelint-disable-line
+    }
+}

@@ -1,10 +1,19 @@
 // theme colors
+// main theme
 $theme-color-background: #525252;
 $theme-color-primary: #4c4c4c;
 $theme-color-secondary: #5e5e5e;
 $theme-color-dark: #373737;
-$theme-color-half-opacity: rgba(100, 100, 100, 0.8);
+$theme-color-half-opacity: rgba(100, 100, 100, 0.9);
 $theme-color-text: #252525;
+
+// pink theme
+$pink-theme-color-background: #f3c;
+$pink-theme-color-primary: #d1e;
+$pink-theme-color-secondary: #f3f;
+$pink-theme-color-dark: #806;
+$pink-theme-color-half-opacity: rgba(204, 51, 153, 0.9);
+$pink-theme-color-text: #505;
 
 // typography
 $theme-font-base: 25px;

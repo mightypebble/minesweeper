@@ -1,22 +1,36 @@
 <section class="minesweeper">
     <div class="navigation">
         <h3 class="flag-counter">000</h3>
-        <button class="button button-menu"></button>
-        <button class="big-button button-reset"></button>
-        <button class="button button-flag"></button>
+        <button title="menu" class="button button-menu"></button>
+        <button title="reset" class="big-button button-reset"></button>
+        <button title="flag mode" class="button button-flag"></button>
         <h3 class="timer">000</h3>
     </div>
     <div class="minefield"></div>
     <div class="menu">
-        <div class="big-buttons-container">
-            <button class="big-button button-easy"></button>
-            <button class="big-button button-normal"></button>
-            <button class="big-button button-hard"></button>
+        <div class="buttons-container">
+            <div class="big-button-container">
+                <button title="easy" class="big-button button-easy"></button>
+                <p>easy</p>
+            </div>
+            <div class="big-button-container">
+                <button title="normal" class="big-button button-normal"></button>
+                <p>normal</p>
+            </div>
+            <div class="big-button-container">
+                <button title="hard" class="big-button button-hard"></button>
+                <p>hard</p>
+            </div>
         </div>
-        <div class="small-button-container">
-            <button class="button button-rules">
-                <p>?</p>
-            </button>
+        <div class="buttons-container">
+            <div class="big-button-container">
+                <button title="rules" class="big-button button-rules"></button>
+                <p>rules</p>
+            </div>
+            <div class="big-button-container">
+                <button title="settings" class="big-button button-settings"></button>
+                <p>settings</p>
+            </div>
         </div>
         <button class="button-close-menu">
             Close
@@ -30,14 +44,24 @@
             the number of bombs surrounding that block.
             Use flags to mark bombs to avoid accidentaly clicking on them.
         </p>
-        <button class="button-close-rules">
+        <button title="close" class="button-close-rules">
             Let's play
+        </button>
+    </div>
+    <div class="settings">
+        <h2>Settings</h2>
+        <div>
+            <input class="settings-checkbox" type="checkbox" name="light-theme" autocomplete="off">
+            <label for="light-theme"><p>Light theme</p></label>
+        </div>
+        <button title="close" class="button-close-settings">
+            Close
         </button>
     </div>
     <div class="victory-screen">
         <h2>You live!</h2>
         <p class="description victory-time"></p>
-        <button class="button-close-victory-screen">
+        <button title="close" class="button-close-victory-screen">
             Play again
         </button>
     </div>

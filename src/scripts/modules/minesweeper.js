@@ -5,6 +5,7 @@ const selector = {
     closeMenuButton: '.button-close-menu',
     closeVictoryScreenButton: '.button-close-victory-screen',
     closeRulesButton: '.button-close-rules',
+    closeSettingsButton: '.button-close-settings',
     flagButton: '.button-flag',
     flagCounter: '.flag-counter',
     menu: '.menu',
@@ -14,6 +15,9 @@ const selector = {
     resetButton: '.button-reset',
     ruleButton: '.button-rules',
     rules: '.rules',
+    settings: '.settings',
+    settingsButton: '.button-settings',
+    settingsCheckbox: '.settings-checkbox',
     timer: '.timer',
     victoryScreen: '.victory-screen',
     victoryTime: '.victory-time',
@@ -22,23 +26,33 @@ const selector = {
 class Minesweeper{
     constructor(container) {
         this.container = container;
+
+        // main elements
+        this.flagCounter = this.container.querySelector(selector.flagCounter);
         this.menu = this.container.querySelector(selector.menu);
-        this.menuButton = this.container.querySelector(selector.menuButton);
-        this.closeMenuButton = this.container.querySelector(selector.closeMenuButton);
+        this.minefield = this.container.querySelector(selector.minefield);
+        this.rules = this.container.querySelector(selector.rules);
+        this.settings = this.container.querySelector(selector.settings);
+        this.victoryScreen = this.container.querySelector(selector.victoryScreen);
+        this.victoryTime = this.container.querySelector(selector.victoryTime);
+
+        // UI elements
         this.buttonEasy = this.container.querySelector(selector.buttonEasy);
         this.buttonNormal = this.container.querySelector(selector.buttonNormal);
         this.buttonHard = this.container.querySelector(selector.buttonHard);
-        this.minefield = this.container.querySelector(selector.minefield);
-        this.ruleButton = this.container.querySelector(selector.ruleButton);
-        this.rules = this.container.querySelector(selector.rules);
+        this.closeMenuButton = this.container.querySelector(selector.closeMenuButton);
         this.closeRulesButton = this.container.querySelector(selector.closeRulesButton);
-        this.resetButton = this.container.querySelector(selector.resetButton);
-        this.flagButton = this.container.querySelector(selector.flagButton);
-        this.flagCounter = this.container.querySelector(selector.flagCounter);
-        this.timer = this.container.querySelector(selector.timer);
-        this.victoryScreen = this.container.querySelector(selector.victoryScreen);
-        this.victoryTime = this.container.querySelector(selector.victoryTime);
+        this.closeSettingsButton = this.container.querySelector(selector.closeSettingsButton);
         this.closeVictoryScreenButton = this.container.querySelector(selector.closeVictoryScreenButton);
+        this.flagButton = this.container.querySelector(selector.flagButton);
+        this.menuButton = this.container.querySelector(selector.menuButton);
+        this.resetButton = this.container.querySelector(selector.resetButton);
+        this.ruleButton = this.container.querySelector(selector.ruleButton);
+        this.settingsButton = this.container.querySelector(selector.settingsButton);
+        this.settingsCheckbox = this.container.querySelector(selector.settingsCheckbox);
+        this.timer = this.container.querySelector(selector.timer);
+        
+        // variables
         this.numberOfBlocks = 280;
         this.difficulty = 'normal';
         this.safeBlocks = null;
@@ -177,29 +191,49 @@ class Minesweeper{
         });
     }
 
-    openMenu() {
-        this.menuButton.addEventListener('click', () => {
-            this.menu.style.display = 'grid';
+    initButtons() {
+        this.buttonEasy.addEventListener('click', () => {
+            this.menu.style.display = 'none';
+            this.difficulty = 'easy';
+            this.minefield.innerHTML = '';
+            this.initMinefield();
         });
-    }
-
-    closeMenu() {
+        this.buttonNormal.addEventListener('click', () => {
+            this.menu.style.display = 'none';
+            this.difficulty = 'normal';
+            this.minefield.innerHTML = '';
+            this.initMinefield();
+        });
+        this.buttonHard.addEventListener('click', () => {
+            this.menu.style.display = 'none';
+            this.difficulty = 'hard';
+            this.minefield.innerHTML = '';
+            this.initMinefield();
+        });
         this.closeMenuButton.addEventListener('click', () => {
             this.menu.style.display = 'none';
         });
-    }
-
-    // displays the rules div
-    openRules() {
+        this.closeRulesButton.addEventListener('click', () => {
+            this.rules.style.display = 'none';
+        });
+        this.closeSettingsButton.addEventListener('click', () => {
+            this.settings.style.display = 'none';
+        });
+        this.menuButton.addEventListener('click', () => {
+            this.menu.style.display = 'grid';
+        });
         this.ruleButton.addEventListener('click', () => {
             this.rules.style.display = 'grid';
         });
-    }
-
-    // closes rules div
-    closeRules() {
-        this.closeRulesButton.addEventListener('click', () => {
-            this.rules.style.display = 'none';
+        this.settingsButton.addEventListener('click', () => {
+            this.settings.style.display = 'grid';
+        });
+        this.settingsCheckbox.addEventListener('change', () => {
+            if (this.settingsCheckbox.checked) {
+                this.container.classList.add('minesweeper-pink');
+            } else {
+                this.container.classList.remove('minesweeper-pink');
+            }
         });
     }
 
@@ -215,33 +249,6 @@ class Minesweeper{
     flagMode() {
         this.flagButton.addEventListener('click', () => {
             this.flagButton.classList.toggle('button-flag-active');
-        });
-    }
-
-    setEasy() {
-        this.buttonEasy.addEventListener('click', () => {
-            this.menu.style.display = 'none';
-            this.difficulty = 'easy';
-            this.minefield.innerHTML = '';
-            this.initMinefield();
-        });
-    }
-
-    setNormal() {
-        this.buttonNormal.addEventListener('click', () => {
-            this.menu.style.display = 'none';
-            this.difficulty = 'normal';
-            this.minefield.innerHTML = '';
-            this.initMinefield();
-        });
-    }
-
-    setHard() {
-        this.buttonHard.addEventListener('click', () => {
-            this.menu.style.display = 'none';
-            this.difficulty = 'hard';
-            this.minefield.innerHTML = '';
-            this.initMinefield();
         });
     }
 
@@ -346,13 +353,7 @@ class Minesweeper{
     // initiates all events
     initEvents() {
         this.initMinefield();
-        this.setEasy();
-        this.setNormal();
-        this.setHard();
-        this.openMenu();
-        this.closeMenu();
-        this.openRules();
-        this.closeRules();
+        this.initButtons();
         this.resetGame();
         this.flagMode();
     }

@@ -1,0 +1,68 @@
+.navigation{
+    align-items: center;
+    border: inset 4px $theme-color-secondary;
+    display: flex;
+    height: 80px;
+    justify-content: space-around;
+    left: 50%;
+    margin-top: 8px;
+    position: relative;
+    transform: translate(-50%);
+
+    h3{
+        font-size: $theme-font-header;
+        margin: 0;
+    }
+
+    .button-rules:active{
+        border: inset 5px $theme-color-secondary;
+    }
+
+    .button-menu::after{
+        @include small-button-emojis;
+        background-image: url('../../assets/menu.svg'); // stylelint-disable-line
+        height: 32px;
+        width: 32px;
+    }
+
+    .button-reset::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/neutral-emoji.png'); // stylelint-disable-line
+    }
+
+    .button-reset-alt::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/intrigued-emoji.png'); // stylelint-disable-line
+    }
+
+    .button-reset-game-over::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/death-emoji.png'); // stylelint-disable-line
+    }
+
+    .button-flag::after{
+        @include small-button-emojis;
+        background-image: url('../../assets/images/flag.png'); // stylelint-disable-line
+    }
+
+    .button-flag-active{
+        border: inset 5px $theme-color-secondary;
+    }
+}
+
+.minesweeper-pink{
+    .button-reset::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/neutral-emoji-cute.png'); // stylelint-disable-line
+    }
+
+    .button-reset-alt::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/intrigued-emoji-cute.png'); // stylelint-disable-line
+    }
+
+    .button-reset-game-over::after{
+        @include big-button-emojis;
+        background-image: url('../../assets/images/death-emoji-cute.png'); // stylelint-disable-line
+    }
+}
