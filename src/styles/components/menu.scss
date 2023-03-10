@@ -1,73 +1,65 @@
-.menu{
+.menu {
     @include full-screen-message;
 
-    .buttons-container{
+    .buttons-container {
         column-gap: 10px;
         display: flex;
         justify-content: center;
     }
 
-    .button-close-menu{
+    .button-close-menu {
         @include text-button;
     }
 
-    .button-easy::after{
+    .button-easy::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/easy-emoji.png'); // stylelint-disable-line
     }
 
-    .button-normal::after{
+    .button-normal::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/normal-emoji.png'); // stylelint-disable-line
     }
 
-    .button-hard::after{
+    .button-hard::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/hard-emoji.png'); // stylelint-disable-line
     }
 
-    .button-rules::after{
+    .button-rules::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/confused-emoji.png'); // stylelint-disable-line
     }
 
-    .button-settings::after{
+    .button-settings::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/settings-emoji.png'); // stylelint-disable-line
     }
 }
 
-.minesweeper-pink{
-    .button-easy::after{
+.minesweeper-pink {
+    .button-easy::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/easy-emoji-cute.png'); // stylelint-disable-line
     }
 
-    .button-normal::after{
+    .button-normal::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/normal-emoji-cute.png'); // stylelint-disable-line
     }
 
-    .button-hard::after{
+    .button-hard::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/hard-emoji-cute.png'); // stylelint-disable-line
     }
 
-    .button-rules::after{
+    .button-rules::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/confused-emoji-cute.png'); // stylelint-disable-line
     }
 
-    .button-settings::after{
+    .button-settings::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/settings-emoji-cute.png'); // stylelint-disable-line
-    }
-}
-
-.rules{
-    @include full-screen-message;
-
-    .button-close-rules{
-        @include text-button;
     }
 }

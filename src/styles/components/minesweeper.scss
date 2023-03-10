@@ -57,29 +57,7 @@ p{
 .minesweeper-pink{
     background-color: $pink-theme-color-background;
     color: $pink-theme-color-text;
-    .navigation{
-        border: inset 4px $pink-theme-color-secondary;
-        .button-flag-active{
-            border: inset 5px $pink-theme-color-secondary;
-        }
-    }
-    .minefield{
-        border: inset 4px $pink-theme-color-secondary;
-        p{
-            color: $pink-theme-color-text;
-        }
-        .mineblock{
-            background-color: $pink-theme-color-primary;
-            border: 3px outset $pink-theme-color-secondary;
-    
-            &:active{
-                border: inset 2px $pink-theme-color-secondary;
-            }
-        }
-        .revealed{
-            border: 1px solid $pink-theme-color-dark;
-        }
-    }
+    font-family: $font-family-pacifico;
     .button{
         color: $pink-theme-color-text;
         background-color: $pink-theme-color-primary;

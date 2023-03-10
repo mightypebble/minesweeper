@@ -1,3 +1,27 @@
+@mixin mineblock{
+    background-color: $theme-color-primary;
+    border: 3px outset $theme-color-secondary;
+    height: 25px;
+    position: relative;
+    width: 25px;
+
+    p{
+        color: $theme-color-text;
+        display: none;
+        font-size: $theme-font-base;
+        font-weight: bold;
+        left: 50%;
+        padding: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &:active{
+        border: inset 2px $theme-color-secondary;
+    }
+}
+
 @mixin text-button{
     color: $theme-color-text;
     background-color: $theme-color-primary;
@@ -24,7 +48,6 @@
     width: 100%;
 
     .description{
-        overflow: scroll;
         padding: 0 25px;
         position: relative;
         transform: translate();

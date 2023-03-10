@@ -11,11 +11,13 @@ $theme-color-text: #252525;
 $pink-theme-color-background: #f3c;
 $pink-theme-color-primary: #d1e;
 $pink-theme-color-secondary: #f3f;
-$pink-theme-color-dark: #806;
+$pink-theme-color-dark: #d1d;
+$pink-theme-color-extradark: #806;
 $pink-theme-color-half-opacity: rgba(204, 51, 153, 0.9);
 $pink-theme-color-text: #505;
 
 // typography
+$theme-font-small: 20px;
 $theme-font-base: 25px;
 $theme-font-header: 45px;
 
@@ -23,20 +25,10 @@ $theme-font-header: 45px;
 $border-property-none: none;
 
 // fonts
-$font-family-scoreboard: scoreboard;
+$font-family-pacifico: pacifico;
 @font-face {
-    font-family: $font-family-scoreboard;
-    src: url('../assets/fonts/Crashed-Scoreboard.ttf');
-}
-$font-family-graduate: graduate;
-@font-face {
-    font-family: $font-family-graduate;
-    src: url('../assets/fonts/Graduate-Regular.ttf');
-}
-$font-family-quantico: quantico;
-@font-face {
-    font-family: $font-family-quantico;
-    src: url('../assets/fonts/Quantico-Bold.ttf');
+    font-family: $font-family-pacifico;
+    src: url('../assets/fonts/Pacifico-Regular.ttf');
 }
 $font-family-vt323: vt323;
 @font-face {

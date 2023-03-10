@@ -148,7 +148,7 @@ class Minesweeper{
                 }
             });
             mineblock.addEventListener('contextmenu', (ev) => { // on right click
-                if (this.gameHasStarted) this.placeFlag(index);
+                if (this.gameHasStarted && !this.gameHasEnded) this.placeFlag(index);
                 ev.preventDefault(); // prevents default menu from opening
                 return false;
             });

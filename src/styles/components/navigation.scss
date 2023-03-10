@@ -65,4 +65,21 @@
         @include big-button-emojis;
         background-image: url('../../assets/images/death-emoji-cute.png'); // stylelint-disable-line
     }
+
+    .button-flag::after{
+        @include small-button-emojis;
+        background-image: url('../../assets/images/butterfly.png'); // stylelint-disable-line
+    }
+
+    .navigation{
+        border: inset 4px $pink-theme-color-secondary;
+        .button-flag-active{
+            border: inset 5px $pink-theme-color-secondary;
+        }
+
+        h3{
+            height: 60px;
+            width: 75px;
+        }
+    }
 }

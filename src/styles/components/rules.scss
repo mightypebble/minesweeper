@@ -1,0 +1,62 @@
+.rules {
+    @include full-screen-message;
+
+    .button-close-rules {
+        @include text-button;
+    }
+
+    .mineblock-rules {
+        @include mineblock;
+    }
+
+    .minefield-rules {
+        border: inset 4px $theme-color-secondary;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        height: min-content;
+        left: 50%;
+        margin-bottom: 10px;
+        pointer-events: none;
+        position: relative;
+        transform: translate(-50%);
+        width: min-content;
+    }
+
+    .revealed {
+        border: 1px solid $theme-color-dark;
+        pointer-events: none;
+
+        p {
+            display: block;
+        }
+
+        &::after {
+            display: block;
+        }
+    }
+
+    .rules-text {
+        margin: 25px 0;
+        overflow: scroll;
+    }
+}
+
+.minesweeper-pink{
+    .mineblock-rules{
+        background-color: $pink-theme-color-primary;
+        border: 3px outset $pink-theme-color-secondary;
+
+        p{
+            color: $pink-theme-color-text;
+            font-size: $theme-font-small;
+        }
+    }
+    .minefield-rules{
+        border: inset 4px $pink-theme-color-secondary;
+    }
+    .revealed{
+        background-color: $pink-theme-color-dark;
+        border: 1px solid $pink-theme-color-extradark;
+    }
+}
