@@ -80,7 +80,7 @@
 
 .revealed{
     border: 1px solid $theme-color-dark;
-    pointer-events: none;
+    user-select: none;
 
     p{
         display: block;

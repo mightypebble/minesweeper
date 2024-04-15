@@ -7,6 +7,10 @@
         justify-content: center;
     }
 
+    .big-button-container{
+        width: 80px
+    }
+
     .button-close-menu {
         @include text-button;
     }
@@ -29,6 +33,11 @@
     .button-rules::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/confused-emoji.png'); // stylelint-disable-line
+    }
+
+    .button-leaderboard::after {
+        @include big-button-emojis;
+        background-image: url('../../assets/images/leaderboard.png'); // stylelint-disable-line
     }
 
     .button-settings::after {
@@ -56,6 +65,11 @@
     .button-rules::after {
         @include big-button-emojis;
         background-image: url('../../assets/images/confused-emoji-cute.png'); // stylelint-disable-line
+    }
+
+    .button-leaderboard::after {
+        @include big-button-emojis;
+        background-image: url('../../assets/images/leaderboard-cute.png'); // stylelint-disable-line
     }
 
     .button-settings::after {

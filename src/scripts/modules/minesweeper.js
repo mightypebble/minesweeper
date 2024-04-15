@@ -2,12 +2,15 @@ const selector = {
     buttonEasy: '.button-easy',
     buttonNormal: '.button-normal',
     buttonHard: '.button-hard',
+    closeLeaderboardButton: '.button-close-leaderboard',
     closeMenuButton: '.button-close-menu',
     closeVictoryScreenButton: '.button-close-victory-screen',
     closeRulesButton: '.button-close-rules',
     closeSettingsButton: '.button-close-settings',
     flagButton: '.button-flag',
     flagCounter: '.flag-counter',
+    leaderboardButton: '.button-leaderboard',
+    leaderboard: '.leaderboard',
     menu: '.menu',
     menuButton: '.button-menu',
     mineblock: '.mineblock',
@@ -29,6 +32,7 @@ class Minesweeper{
 
         // main elements
         this.flagCounter = this.container.querySelector(selector.flagCounter);
+        this.leaderboard = this.container.querySelector(selector.leaderboard);
         this.menu = this.container.querySelector(selector.menu);
         this.minefield = this.container.querySelector(selector.minefield);
         this.rules = this.container.querySelector(selector.rules);
@@ -40,11 +44,13 @@ class Minesweeper{
         this.buttonEasy = this.container.querySelector(selector.buttonEasy);
         this.buttonNormal = this.container.querySelector(selector.buttonNormal);
         this.buttonHard = this.container.querySelector(selector.buttonHard);
+        this.closeLeaderboardButton = this.container.querySelector(selector.closeLeaderboardButton);
         this.closeMenuButton = this.container.querySelector(selector.closeMenuButton);
         this.closeRulesButton = this.container.querySelector(selector.closeRulesButton);
         this.closeSettingsButton = this.container.querySelector(selector.closeSettingsButton);
         this.closeVictoryScreenButton = this.container.querySelector(selector.closeVictoryScreenButton);
         this.flagButton = this.container.querySelector(selector.flagButton);
+        this.leaderboardButton = this.container.querySelector(selector.leaderboardButton);
         this.menuButton = this.container.querySelector(selector.menuButton);
         this.resetButton = this.container.querySelector(selector.resetButton);
         this.ruleButton = this.container.querySelector(selector.ruleButton);
@@ -59,6 +65,7 @@ class Minesweeper{
         this.unplacedFlags = null;
         this.gameHasStarted = false;
         this.gameHasEnded = false;
+        this.audio = new Audio('../assets/audio/default/explosion.mp3');
 
         this.initEvents();
     }
@@ -110,18 +117,14 @@ class Minesweeper{
         this.blocks = this.container.querySelectorAll(selector.mineblock); // all blocks
         this.blocks.forEach(mineblock => {
             const index = Array.prototype.indexOf.call(this.blocks, mineblock); // index of current block in foreach
-            mineblock.onpointerdown = () => { // eslint-disable-line
-                this.resetButton.classList.add('button-reset-alt');
-            }
-            mineblock.onpointerup = () => { // eslint-disable-line
-                this.resetButton.classList.remove('button-reset-alt');
-            }
+            this.showAdjecents(index);
             mineblock.addEventListener('click', () => {
                 if (!this.gameHasEnded) { // tests if game has ended
+                    if (mineblock.classList.contains('revealed')) this.speedrun(index);
                     if (this.flagButton.classList.contains('button-flag-active')) {
                         this.placeFlag(index);
                     } else {
-                        if (!mineblock.classList.contains('flagged')) { // tests if block is flagged
+                        if (!mineblock.classList.contains('flagged') && !mineblock.classList.contains('revealed')) { // tests if block is flagged
                             mineblock.classList.add('revealed'); // reveals block
                             mineblock.classList.remove('uncertain'); // removes ? if there are any
                             if (!mineblock.classList.contains('bomb')) {
@@ -158,11 +161,13 @@ class Minesweeper{
     // uses rng to fill block with bombs
     initBombs(mineblockIndex) { // places mines
         this.unplacedFlags = this.bombs;
+        this.bombArray = [];
         while (this.bombs !== 0) {
             const random = (Math.floor(Math.random() * this.numberOfBlocks)); // random number from 0 to number of blocks - 1
             // checks if there is already a bomb on the rolled block and if it's the first block revealed
             if (!this.blocks[random].classList.contains('bomb') && random !== mineblockIndex) {
                 this.blocks[random].classList.add('bomb');
+                this.bombArray.push(this.blocks[random]);
                 this.bombs -= 1;
             }
         }
@@ -210,6 +215,9 @@ class Minesweeper{
             this.minefield.innerHTML = '';
             this.initMinefield();
         });
+        this.closeLeaderboardButton.addEventListener('click', () => {
+            this.leaderboard.style.display = 'none';
+        });
         this.closeMenuButton.addEventListener('click', () => {
             this.menu.style.display = 'none';
         });
@@ -218,6 +226,9 @@ class Minesweeper{
         });
         this.closeSettingsButton.addEventListener('click', () => {
             this.settings.style.display = 'none';
+        });
+        this.leaderboardButton.addEventListener('click', () => {
+            this.leaderboard.style.display = 'grid';
         });
         this.menuButton.addEventListener('click', () => {
             this.menu.style.display = 'grid';
@@ -231,8 +242,10 @@ class Minesweeper{
         this.settingsCheckbox.addEventListener('change', () => {
             if (this.settingsCheckbox.checked) {
                 this.container.classList.add('minesweeper-pink');
+                this.audio = new Audio('../assets/audio/farts/fast-fart.mp3');
             } else {
                 this.container.classList.remove('minesweeper-pink');
+                this.audio = new Audio('../assets/audio/default/explosion.mp3');
             }
         });
     }
@@ -265,9 +278,74 @@ class Minesweeper{
     loss() {
         this.gameHasEnded = true;
         this.resetButton.classList.add('button-reset-game-over');
-        this.blocks.forEach(mineblock => {
-            if (mineblock.classList.contains('bomb')) mineblock.classList.add('revealed');
+        this.audio.play();
+        this.bombArray.forEach(bomb => {
+            bomb.classList.add('revealed');
+        })
+        
+    }
+
+    // shows adjecent blocks when pressing and holding on a block
+    showAdjecents(mineblockIndex) {
+        const cols = this.columns;
+        let adjecentBlocks = [-cols-1, -cols, -cols+1, -1, 1, cols-1, cols, cols+1]; // positions of all adjecent blocks to the one selected
+        if (mineblockIndex % cols === 0) adjecentBlocks = [-cols, -cols+1, 1, cols, cols+1]; // positions if selected block is on the left wall
+        else if ((mineblockIndex + 1) % cols === 0) adjecentBlocks = [-cols-1, -cols, -1, cols-1, cols]; // if it's on the right wall
+        this.blocks[mineblockIndex].onpointerdown = () => {
+            this.resetButton.classList.add('button-reset-alt');
+            adjecentBlocks.forEach(adjecentBlock => {
+                // tests for out of bounds indexes
+                if ((mineblockIndex + adjecentBlock) < 0 || (mineblockIndex + adjecentBlock) > this.numberOfBlocks - 1) adjecentBlock = 0; // eslint-disable-line
+                if (!this.blocks[mineblockIndex + adjecentBlock].classList.contains('revealed') &&
+                 this.blocks[mineblockIndex].classList.contains('revealed')) {
+                    this.blocks[mineblockIndex + adjecentBlock].style.border = 'inset 2px #5e5e5e';
+                }
+            });
+        }
+        this.blocks[mineblockIndex].onpointerup = () => {
+            this.resetButton.classList.remove('button-reset-alt');
+            adjecentBlocks.forEach(adjecentBlock => {
+                // tests for out of bounds indexes
+                if ((mineblockIndex + adjecentBlock) < 0 || (mineblockIndex + adjecentBlock) > this.numberOfBlocks - 1) adjecentBlock = 0; // eslint-disable-line
+                this.blocks[mineblockIndex + adjecentBlock].removeAttribute('style');
+            });
+        }
+    }
+
+    // reveals all blocks that have not been flagged around an already revealed block if the flags correspond to the block's number
+    speedrun(mineblockIndex) {
+        const cols = this.columns;
+        let adjecentBlocks = [-cols-1, -cols, -cols+1, -1, 1, cols-1, cols, cols+1]; // positions of all adjecent blocks to the one selected
+        let flaggedBlocks = 0;
+        if (mineblockIndex % cols === 0) adjecentBlocks = [-cols, -cols+1, 1, cols, cols+1]; // positions if selected block is on the left wall
+        else if ((mineblockIndex + 1) % cols === 0) adjecentBlocks = [-cols-1, -cols, -1, cols-1, cols]; // if it's on the right wall
+        adjecentBlocks.forEach(adjecentBlock => {
+            // tests for out of bounds indexes
+            if ((mineblockIndex + adjecentBlock) < 0 || (mineblockIndex + adjecentBlock) > this.numberOfBlocks - 1) adjecentBlock = 0; // eslint-disable-line
+            if (this.blocks[mineblockIndex + adjecentBlock].classList.contains('flagged')) { // increments number based on nearby bombs
+                flaggedBlocks += 1;
+            }
         });
+        if (flaggedBlocks === parseInt(this.blocks[mineblockIndex].querySelector('p').innerHTML, 10)) {
+            adjecentBlocks.forEach(adjecentBlock => {
+                // tests for out of bounds indexes
+                if ((mineblockIndex + adjecentBlock) < 0 || (mineblockIndex + adjecentBlock) > this.numberOfBlocks - 1) adjecentBlock = 0; // eslint-disable-line
+                const block = this.blocks[mineblockIndex + adjecentBlock];
+                if (!block.classList.contains('flagged')) {
+                    this.mineScan(mineblockIndex + adjecentBlock);
+                    if (!block.classList.contains('revealed')) {
+                        block.classList.add('revealed');
+                        block.classList.remove('uncertain');
+                        this.safeBlocks -= 1;
+                        if (this.safeBlocks === 0) { // win condition
+                            this.gameHasEnded = true;
+                            this.victory();
+                        }
+                    }
+                    if (block.classList.contains('bomb')) this.loss();
+                }
+            });
+        }
     }
 
     // uses recursion to scan selected block for nearby empty blocks and then repeats the function for said empty block
@@ -292,6 +370,10 @@ class Minesweeper{
                 if (!this.blocks[mineblockIndex + adjecentBlock].classList.contains('revealed')) {
                     this.blocks[mineblockIndex + adjecentBlock].classList.add('revealed');
                     this.safeBlocks -= 1;
+                    if (this.safeBlocks === 0) { // win condition
+                        this.gameHasEnded = true;
+                        this.victory();
+                    }
                     this.blocks[mineblockIndex + adjecentBlock].classList.remove('flagged'); // removes flags if there are any
                     this.blocks[mineblockIndex + adjecentBlock].classList.remove('uncertain'); // removes ? if there are any
                     this.mineScan(mineblockIndex + adjecentBlock); // recursion

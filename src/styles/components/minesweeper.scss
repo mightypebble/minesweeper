@@ -44,6 +44,7 @@ p{
 
 .minesweeper{
     background-color: $theme-color-background;
+    border: outset 4px $theme-color-secondary;
     display: grid;
     row-gap: 5px;
     justify-content: center;
@@ -56,6 +57,7 @@ p{
 
 .minesweeper-pink{
     background-color: $pink-theme-color-background;
+    border: outset 4px $pink-theme-color-secondary;
     color: $pink-theme-color-text;
     font-family: $font-family-pacifico;
     .button{
@@ -74,12 +76,13 @@ p{
             border: inset 5px $pink-theme-color-secondary;
         }
     }
-    .rules, .victory-screen, .menu, .settings{
+    .rules, .victory-screen, .menu, .settings, .leaderboard{
         background-color: $pink-theme-color-half-opacity;
         p {
             color: $pink-theme-color-text;
         }
-        .button-close-victory-screen, .button-close-menu, .button-close-rules, .button-close-settings{
+        .button-close-victory-screen, .button-close-menu, .button-close-rules,
+         .button-close-settings, .button-close-leaderboard{
             color: $pink-theme-color-text;
             background-color: $pink-theme-color-primary;
             border: outset 4px $pink-theme-color-secondary;

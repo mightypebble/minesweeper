@@ -28,6 +28,10 @@
                 <p>rules</p>
             </div>
             <div class="big-button-container">
+                <button title="leaderboard" class="big-button button-leaderboard"></button>
+                <p>records</p>
+            </div>
+            <div class="big-button-container">
                 <button title="settings" class="big-button button-settings"></button>
                 <p>settings</p>
             </div>
@@ -98,8 +102,70 @@
                 <div class="mineblock-rules revealed"></div>
                 <div class="mineblock-rules revealed"></div>
             </div>
+            <p class="description">
+                Clicking on an already revealed block will highlight its adjecent closed blocks.
+                You should use it, if you are a beginner and unsure which blocks neighbour the one you are interested in.
+            </p>
+            <div class="minefield-rules">
+                <div class="mineblock-rules"></div>
+                <div class="mineblock-rules bomb" ></div>
+                <div class="mineblock-rules"></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+            </div>
+            <div class="minefield-rules">
+                <div class="mineblock-rules highlighted"></div>
+                <div class="mineblock-rules bomb highlighted" ></div>
+                <div class="mineblock-rules"></div>
+                <div class="mineblock-rules revealed" style="background-color: #478498;"><p>1</p></div>
+                <div class="mineblock-rules highlighted"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+            </div>
+            <p class="description">
+                In the above example, the colored block is clicked and the highlighted ones are it's adjecents
+            </p>
+            <p class="description">
+                Finally, if you click on a revealed block which has neighbouring flags equal to its number,
+                the rest of the blocks will be revealed, !even if there are bombs amonst them!.
+            </p>
+            <div class="minefield-rules">
+                <div class="mineblock-rules"><p>1</p></div>
+                <div class="mineblock-rules" ><p>1</p></div>
+                <div class="mineblock-rules bomb"></div>
+                <div class="mineblock-rules revealed" style="background-color: #478498;"><p>1</p></div>
+                <div class="mineblock-rules bomb flagged"></div>
+                <div class="mineblock-rules revealed"><p>2</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+            </div>
+            <div class="minefield-rules">
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed" ><p>2</p></div>
+                <div class="mineblock-rules bomb"></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules bomb flagged"></div>
+                <div class="mineblock-rules revealed"><p>2</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+                <div class="mineblock-rules revealed"><p>1</p></div>
+            </div>
         </div>
         <button title="close" class="button-close-rules">Let's play</button>
+    </div>
+    <div class="leaderboard">
+        <h2>Leaderboard</h2>
+        <div class="leaderboard-container">
+            
+        </div>
+        <button title="close" class="button-close-leaderboard">Close</button>
     </div>
     <div class="settings">
         <h2>Settings</h2>

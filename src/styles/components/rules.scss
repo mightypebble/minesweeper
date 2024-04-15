@@ -36,6 +36,10 @@
         }
     }
 
+    .highlighted{
+        border: 2px inset $theme-color-secondary;
+    }
+
     .rules-text {
         margin: 25px 0;
         overflow: scroll;
@@ -58,5 +62,9 @@
     .revealed{
         background-color: $pink-theme-color-dark;
         border: 1px solid $pink-theme-color-extradark;
+    }
+
+    .highlighted{
+        border: 2px inset $pink-theme-color-secondary;
     }
 }

@@ -1,0 +1,7 @@
+.leaderboard{
+    @include full-screen-message;
+}
+
+.button-close-leaderboard{
+    @include text-button;
+}
