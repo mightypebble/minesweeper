@@ -1,17 +1,6 @@
-# Project template with webpack, gulp, panini, sass, browsersync, sherpa
-
-This is a stripped-down ZURB Foundation for Sites template.
-
-It has a Gulp-powered build system with these features:
-
-- Handlebars HTML templates with Panini
-- Sass compilation and prefixing
-- JavaScript module bundling with webpack
-- Built-in BrowserSync server
-- For production builds:
-  - CSS compression
-  - JavaScript compression
-  - Image compression
+This is a simple minesweeper game that was a personal project to see if i can create the base game by myself.
+It is now a finished game that will be constantly updated visually to be more appealing, and help me learn 
+new website design tricks.
 
 ## Installation
 

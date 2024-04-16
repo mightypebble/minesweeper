@@ -34,12 +34,22 @@ p{
     @include big-button;
 }
 
-.victory-screen{
+.victory-screen, .loss-screen{
     @include full-screen-message;
+
+    .atomic-bomb {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
 
     .button-close-victory-screen{
         @include text-button;
     }
+}
+
+.loss-screen {
+    animation: atomic-bomb 2.6s forwards;
 }
 
 .minesweeper{

@@ -16,6 +16,12 @@ $pink-theme-color-extradark: #806;
 $pink-theme-color-half-opacity: rgba(204, 51, 153, 0.9);
 $pink-theme-color-text: #505;
 
+// atomic bomb effect
+$atomic-bomb-flash: #ffeaea;
+$atomic-bomb-aftermath: #920000;
+$atomic-bomb-distortion: repeating-radial-gradient(#000 0 0.0001%,#fff 0 0.0002%) 50% 0/2500px 2500px,
+repeating-conic-gradient(#000 0 0.0001%,#fff 0 0.0002%) 60% 60%/2500px 2500px;
+
 // typography
 $theme-font-small: 20px;
 $theme-font-base: 25px;

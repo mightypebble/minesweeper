@@ -11,6 +11,7 @@ const selector = {
     flagCounter: '.flag-counter',
     leaderboardButton: '.button-leaderboard',
     leaderboard: '.leaderboard',
+    lossScreen: '.loss-screen',
     menu: '.menu',
     menuButton: '.button-menu',
     mineblock: '.mineblock',
@@ -33,6 +34,7 @@ class Minesweeper{
         // main elements
         this.flagCounter = this.container.querySelector(selector.flagCounter);
         this.leaderboard = this.container.querySelector(selector.leaderboard);
+        this.lossScreen = this.container.querySelector(selector.lossScreen);
         this.menu = this.container.querySelector(selector.menu);
         this.minefield = this.container.querySelector(selector.minefield);
         this.rules = this.container.querySelector(selector.rules);
@@ -65,7 +67,10 @@ class Minesweeper{
         this.unplacedFlags = null;
         this.gameHasStarted = false;
         this.gameHasEnded = false;
-        this.audio = new Audio('../assets/audio/default/explosion.mp3');
+        this.audio = new Audio('../assets/audio/default/atomic-bomb.mp3');
+
+        // Code blocks
+        this.atomicBomb = '<img class="atomic-bomb" src="" alt="atomic-bomb">';
 
         this.initEvents();
     }
@@ -245,7 +250,7 @@ class Minesweeper{
                 this.audio = new Audio('../assets/audio/farts/fast-fart.mp3');
             } else {
                 this.container.classList.remove('minesweeper-pink');
-                this.audio = new Audio('../assets/audio/default/explosion.mp3');
+                this.audio = new Audio('../assets/audio/default/atomic-bomb.mp3');
             }
         });
     }
@@ -270,19 +275,27 @@ class Minesweeper{
         this.victoryScreen.style.display = 'grid';
         this.victoryTime.innerHTML = `${this.timer.innerHTML} seconds`;
         this.closeVictoryScreenButton.addEventListener('click', () => {
-            this.victoryScreen.style.display = 'none';
+            this.victorySccreen.style.display = 'none';
         });
     }
 
     // displays defeat screen
     loss() {
+        this.audio.play();
+        this.lossScreen.insertAdjacentHTML('afterbegin', this.atomicBomb);
+        document.body.classList.add('atomic-bomb-background');
+        this.lossScreen.firstChild.src = '../../assets/images/atomic-bomb.gif';
         this.gameHasEnded = true;
         this.resetButton.classList.add('button-reset-game-over');
-        this.audio.play();
         this.bombArray.forEach(bomb => {
             bomb.classList.add('revealed');
         })
-        
+        this.lossScreen.style.display = 'grid';
+        setTimeout(() => {
+            document.body.classList.remove('atomic-bomb-background');
+            this.lossScreen.style.display = 'none';
+            this.lossScreen.removeChild(this.lossScreen.firstChild);
+        },2500);
     }
 
     // shows adjecent blocks when pressing and holding on a block
