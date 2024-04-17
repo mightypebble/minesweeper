@@ -71,6 +71,8 @@ class Minesweeper{
 
         // Code blocks
         this.atomicBomb = '<img class="atomic-bomb" src="" alt="atomic-bomb">';
+        this.flower = `<img class="flower" style="left:${Math.floor(Math.random()*100)}vw;` + 
+        `top:${Math.floor(Math.random()*100)}vh;" src="../assets/images/flower.png" alt="flower">`;
 
         this.initEvents();
     }
@@ -246,6 +248,7 @@ class Minesweeper{
         });
         this.settingsCheckbox.addEventListener('change', () => {
             if (this.settingsCheckbox.checked) {
+                this.flowerBackgroundEffect();
                 this.container.classList.add('minesweeper-pink');
                 this.audio = new Audio('../assets/audio/farts/fast-fart.mp3');
             } else {
@@ -275,27 +278,56 @@ class Minesweeper{
         this.victoryScreen.style.display = 'grid';
         this.victoryTime.innerHTML = `${this.timer.innerHTML} seconds`;
         this.closeVictoryScreenButton.addEventListener('click', () => {
-            this.victorySccreen.style.display = 'none';
+            this.victoryScreen.style.display = 'none';
         });
     }
 
     // displays defeat screen
     loss() {
+        this.lossScreen.style.display = 'grid';
+        this.atomicBombEffect();
         this.audio.play();
-        this.lossScreen.insertAdjacentHTML('afterbegin', this.atomicBomb);
-        document.body.classList.add('atomic-bomb-background');
-        this.lossScreen.firstChild.src = '../../assets/images/atomic-bomb.gif';
         this.gameHasEnded = true;
         this.resetButton.classList.add('button-reset-game-over');
         this.bombArray.forEach(bomb => {
             bomb.classList.add('revealed');
         })
-        this.lossScreen.style.display = 'grid';
+    }
+
+    // thunderStormEffect() {
+
+    // }
+
+    atomicBombEffect() {
+        this.audio = new Audio('../assets/audio/default/atomic-bomb.mp3');
+        this.lossScreen.insertAdjacentHTML('afterbegin', this.atomicBomb);
+        document.body.classList.add('atomic-bomb-background');
+        this.lossScreen.firstChild.src = '../../assets/images/atomic-bomb.gif';
         setTimeout(() => {
             document.body.classList.remove('atomic-bomb-background');
             this.lossScreen.style.display = 'none';
             this.lossScreen.removeChild(this.lossScreen.firstChild);
         },2500);
+    }
+
+    flowerBackgroundEffect() {
+        const flowerPutter = setInterval(() => {
+            this.flower = `<img class="flower" style="left:${Math.floor(Math.random()*100)}vw;` + 
+        `top:${Math.floor(Math.random()*100)}vh;" src="../assets/images/flower.png" alt="flower">`;
+            document.querySelector('body').insertAdjacentHTML('beforeend',
+                this.flower);
+            if (!document.querySelector('.minesweeper-pink')) window.clearInterval(flowerPutter);
+        },250);
+        setTimeout(() => {
+            const flowerKiller = setInterval(() => {
+                document.querySelector('body').removeChild(document.querySelector('.flower'));
+                if (!document.querySelector('.minesweeper-pink')) {
+                    setTimeout(() => {
+                        window.clearInterval(flowerKiller);
+                    },2000);
+                }
+            },250);
+        },2000);
     }
 
     // shows adjecent blocks when pressing and holding on a block

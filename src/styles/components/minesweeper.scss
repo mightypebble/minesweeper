@@ -1,6 +1,13 @@
 body{
     background-color: $theme-color-primary;
     font-family: $font-family-vt323;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+body:has(.minesweeper-pink) {
+    background-color: $pink-theme-color-flower-background;
 }
 
 button:focus{
