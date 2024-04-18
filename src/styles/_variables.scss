@@ -17,9 +17,17 @@ $pink-theme-color-half-opacity: rgba(204, 51, 153, 0.9);
 $pink-theme-color-text: #505;
 $pink-theme-color-flower-background: rgba(40, 0, 85, 0.593);
 
+// thunder storm effect
+$lightning-flash: #b2e6fe;
+$rain: radial-gradient(2px 8px,#9dbecf 100%,transparent 100%) -12px 3px,
+radial-gradient(2px 8px,#72a9c9 100%,transparent 100%) 17px 0,
+radial-gradient(2px 8px,#7ca3c0 100%,transparent 100%) 6px  12px,
+radial-gradient(2px 8px,#608db7 100%,transparent 100%) 24px 23px,
+radial-gradient(2px 8px,#608db7 100%,transparent 100%) 39px 30px,
+radial-gradient(2px 8px,#9aacd3 100%,transparent 100%) 5px  43px;
+
 // atomic bomb effect
 $atomic-bomb-flash: #ffeaea;
-$atomic-bomb-aftermath: #920000;
 $atomic-bomb-distortion: repeating-radial-gradient(#000 0 0.0001%,#fff 0 0.0002%) 50% 0/2500px 2500px,
 repeating-conic-gradient(#000 0 0.0001%,#fff 0 0.0002%) 60% 60%/2500px 2500px;
 

@@ -57,3 +57,65 @@
     z-index: -1;
     animation: flower-background 2s forwards;
 }
+
+@keyframes rain {
+    to {
+        transform: skew(-8deg) translateY(55px);
+    }
+}
+
+@keyframes lightning {
+    from {
+        background-color: $lightning-flash;
+    }
+    2% {
+        background-color: $pink-theme-color-flower-background;
+    }
+    5% {
+        background-color: $lightning-flash;
+    }
+    7% {
+        background-color: $theme-color-background;
+        filter: sepia(100%);
+    }
+    to {
+        filter: sepia(0%);
+        background-color: $pink-theme-color-flower-background;
+    }
+}
+
+html:has(.rain) {
+    height:100%;
+    background: $theme-color-background;
+    overflow:hidden;
+
+    &::before {
+        content:"";
+        position:absolute;
+        bottom:0;
+        right:-20%;
+        left:-20%;
+        height:calc(100% + 100px);
+        background: $rain;
+        background-size:50px 54px; // stylelint-disable-line
+        animation: rain 0.2s linear infinite;
+        transform:skew(-8deg);
+    }
+}
+
+@keyframes sepia {
+    from {
+        filter: sepia(100%);
+    }
+    to {
+        filter: sepia(0%);
+    }
+}
+
+.rain{
+    animation: lightning 2.5s forwards;
+
+    .minesweeper {
+        animation: sepia 3s forwards
+    }
+}

@@ -250,7 +250,7 @@ class Minesweeper{
             if (this.settingsCheckbox.checked) {
                 this.flowerBackgroundEffect();
                 this.container.classList.add('minesweeper-pink');
-                this.audio = new Audio('../assets/audio/farts/fast-fart.mp3');
+                this.audio = new Audio('../assets/audio/default/thunder.mp3');
             } else {
                 this.container.classList.remove('minesweeper-pink');
                 this.audio = new Audio('../assets/audio/default/atomic-bomb.mp3');
@@ -263,6 +263,10 @@ class Minesweeper{
         this.resetButton.addEventListener('click', () => {
             this.minefield.innerHTML = '';
             this.initMinefield();
+            if (document.querySelector('.minesweeper-pink')) {
+                document.querySelector('body').classList.remove('rain');
+                this.flowerBackgroundEffect();
+            }
         })
     }
 
@@ -284,8 +288,9 @@ class Minesweeper{
 
     // displays defeat screen
     loss() {
-        this.lossScreen.style.display = 'grid';
-        this.atomicBombEffect();
+        if (document.querySelector('.minesweeper-pink')) {
+            this.thunderStormEffect();
+        } else this.atomicBombEffect();
         this.audio.play();
         this.gameHasEnded = true;
         this.resetButton.classList.add('button-reset-game-over');
@@ -294,12 +299,17 @@ class Minesweeper{
         })
     }
 
-    // thunderStormEffect() {
-
-    // }
+    thunderStormEffect() {
+        this.audio = new Audio('../assets/audio/default/thunder.mp3');
+        document.querySelector('body').classList.add('rain');
+        document.querySelectorAll('.flower').forEach((flower) => {
+            flower.remove();
+        })
+    }
 
     atomicBombEffect() {
         this.audio = new Audio('../assets/audio/default/atomic-bomb.mp3');
+        this.lossScreen.style.display = 'grid';
         this.lossScreen.insertAdjacentHTML('afterbegin', this.atomicBomb);
         document.body.classList.add('atomic-bomb-background');
         this.lossScreen.firstChild.src = '../../assets/images/atomic-bomb.gif';
@@ -316,12 +326,12 @@ class Minesweeper{
         `top:${Math.floor(Math.random()*100)}vh;" src="../assets/images/flower.png" alt="flower">`;
             document.querySelector('body').insertAdjacentHTML('beforeend',
                 this.flower);
-            if (!document.querySelector('.minesweeper-pink')) window.clearInterval(flowerPutter);
+            if (!document.querySelector('.minesweeper-pink') || document.querySelector('.rain')) window.clearInterval(flowerPutter);
         },250);
         setTimeout(() => {
             const flowerKiller = setInterval(() => {
-                document.querySelector('body').removeChild(document.querySelector('.flower'));
-                if (!document.querySelector('.minesweeper-pink')) {
+                if (document.querySelector('.flower')) document.querySelector('body').removeChild(document.querySelector('.flower'));
+                if (!document.querySelector('.minesweeper-pink') || document.querySelector('.rain')) {
                     setTimeout(() => {
                         window.clearInterval(flowerKiller);
                     },2000);
